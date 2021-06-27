@@ -1,0 +1,23 @@
+// Ce fichier permet de declarer les fonctions AVANT et APRES execution des fichiers DOS
+// [EN] This file allow to declare function for BEFORE & AFTER dos file execution
+
+Declare/ BEFORE_DOS() : NIVEAU(5)
+Declare/ AFTER_DOS() : NIVEAU(5)
+
+// Declare OS variable
+CCP/ /SET.LEVEL = 4
+set/ Resolution_BEFORE = 0
+
+
+Function/ Before_DOS()
+
+        sys/ /screen 0
+	
+End/ Function
+
+
+Function/ After_DOS()
+
+        sys/ /screen 19
+
+End/ Function

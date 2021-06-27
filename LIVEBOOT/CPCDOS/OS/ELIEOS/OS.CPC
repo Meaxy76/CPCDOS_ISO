@@ -1,0 +1,132 @@
+
+exe/ & %CPC.REP.KRNL%/CONFIG/ENV_GUI/env_gui.cpc
+
+set/ SCR_IMG = OS/ELIEOS/SYSIV/BACK/ELIEOS3.png
+
+set/ SCR_BIT = 24
+
+ccp/ /set.level = 4
+
+SET/ OS_NAME = ElieOS
+SET/ OS_TYPE = Office-System
+SET/ OS_VERSION = Installer 1.0
+SET/ OS_Author = Meaxy
+SET/ OS_Compagny = Meaxy Computer
+SET/ OS_Created = 18-11-2018
+SET/ OS_build = 2021.0317
+SET/ OS_codename = Thunder
+SET/ SYSTEM_SOFTWARE = 3
+SET/ TEST_TYPE = TEST TYPE A
+
+CCP/ /Lang = EN
+
+SET/ HOST_OS = OS/ELIEOS
+SET/ ELIE_LIBS = OS/ELIEOS/SYSIV/ELIE32/LIBS
+SET/ GUI_CONFIG = GUI_CONF
+
+SET/ SCR_MODE = 19
+SET/ SCR_IMG_MODE = 2
+
+SET/ ELIE.WINDOW.COLOR = 051,051,051
+
+ccp/ /set.level = 3
+
+SET/ CPC_GUI.LOAD_IMG = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/LOAD.PNG
+
+SET/ CPC_GUI.WINDOW.TITLE_RGB = 255,255,255
+SET/ CPC_GUI.WINDOW.ICO = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/elie.png
+SET/ CPC_GUI.WINDOW.BT_CLOSE = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_CLOSE.png
+SET/ CPC_GUI.WINDOW.TITLE_IMG = %HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/DEF_GUI.png
+SET/ CPC_GUI.WINDOW.BT_SIZEUP = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_sizUP.PNG
+SET/ CPC_GUI.WINDOW.BT_SIZEDOWN = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_sizDN.PNG
+SET/ CPC_GUI.WINDOW.BT_REDUCT = OS/ELIEOS/SYSIV/ELIE32/%GUI_CONFIG%/GUI/BT_red.PNG
+
+// [FR] Image item non focus
+// [EN] No focus item image
+SET/ CPC_GUI.TASKBAR.NORMAL = %HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/taskb.png
+
+// [FR] Image item focus
+// [EN] Focus item image
+SET/ CPC_GUI.TASKBAR.FOCUS = %HOST_OS%/SYSIV/ELIE32/ICONPACK/BUTTON/taskl.png
+
+
+// [FR] Position de depart des items
+// [EN] Starting position items
+SET/ CPC_GUI.TASKBAR.POS_X = 40
+SET/ CPC_GUI.TASKBAR.POS_Y = 0
+
+// [FR] Taille de la taskbar
+// [EN] Taskbar size
+SET/ TASK_SIZ_X = /C(%CPC.SCR.X% - 290)
+SET/ CPC_GUI.TASKBAR.SIZ_X = %TASK_SIZ_X%
+SET/ CPC_GUI.TASKBAR.SIZ_Y = 2
+
+// [FR] Espacement entre les items
+// [EN] Spacing between items
+SET/ CPC_GUI.TASKBAR.SPACING_X = 20
+SET/ CPC_GUI.TASKBAR.SPACING_Y = 0
+
+
+
+// --------- B Y   I T E M S ----------
+
+// [FR] Nombre de caractere max
+// [EN] Max char numbers
+SET/ CPC_GUI.TASKBAR.SIZ_TEXT = 10
+
+// [FR] Taille de chaque items
+// [EN] Size for each items
+SET/ CPC_GUI.TASKBAR.SIZ_ITEM_X = 130
+SET/ CPC_GUI.TASKBAR.SIZ_ITEM_Y = 21
+
+// [FR] Positionnement du texte dans l'item
+// [EN] Text position on item
+SET/ CPC_GUI.TASKBAR.POS_TEXT_X = 32
+SET/ CPC_GUI.TASKBAR.POS_TEXT_Y = 8
+
+// [FR] Positionnement du texte dans l'item
+// [EN] Text position on item
+SET/ CPC_GUI.TASKBAR.POS_ICON_X = 2
+SET/ CPC_GUI.TASKBAR.POS_ICON_Y = 3
+
+// [FR] Positionnement du texte dans l'item
+// [EN] Text position on item
+SET/ CPC_GUI.TASKBAR.SIZ_ICON_X = 16
+SET/ CPC_GUI.TASKBAR.SIZ_ICON_Y = 16
+
+// [FR] Couleur du titre
+// [EN] Title color
+SET/ CPC_GUI.TASKBAR.TEXT_R = 240
+SET/ CPC_GUI.TASKBAR.TEXT_G = 240
+SET/ CPC_GUI.TASKBAR.TEXT_B = 250
+
+
+
+
+                 @#SYS_SCREEN sys/ /liste /ecran 24
+                 SET/ Resol_Check = /f:CPC.INSTR(%SYS_SCREEN%, 1920x1080)
+                        if/ "%Resol_Check%" > "0" then:
+	                         set/ SCR_RES = 1920x1080
+	                     
+                        else:
+                           SET/ Resol_Check = /f:CPC.INSTR(%SYS_SCREEN%, 1366x768)
+                            if/ "%Resol_Check%" > "0" then:
+	                            set/ SCR_RES = 1366x768
+                            else:
+                                SET/ Resol_Check = /f:CPC.INSTR(%SYS_SCREEN%, 1024x768)
+                                if/ "%Resol_Check%" > "0" then:
+                                set/ SCR_RES = 1024x768
+                                end/ if
+                            end/ if
+                        end/ if
+
+
+gui/
+
+
+
+exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETUP/STAGE1.CPC
+   
+exe/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/LAUNCHER.CPC   
+
+

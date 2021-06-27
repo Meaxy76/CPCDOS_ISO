@@ -1,0 +1,179 @@
+// We format and install the default FreeDOS 
+// After we go back to Cpcdos in L:\ 
+// Go in STAGE2.CPC
+// Install Cpcdos OSx
+// Install Cpcdos OS Distrib (MyOS, ElieOS, FireFlyOS, etc...)
+// Change to C:\ and make a SYS/ /OS:YOUROS
+// Stage3
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup Stage 1"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+set/ labellaa = \#NULL
+
+textblock/ labella
+	.handle				= "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT       = "%labellaa%"
+	.px					= "170"
+	.py					= "255"
+    .TEXTCOLOR  = "200,200,200"
+	CREATE/
+END/ textblock
+
+
+Picturebox/ HDD
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "100"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/HDD.PNG"
+	    .event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+        create/
+
+End/ Picturebox
+
+function/ HDD.MouseEnter()
+
+
+    textblock/ /modif:labella
+             .text = "Create or delete HDD partition"
+             .TEXTCOLOR  = "200,200,200"
+             create/
+    end/ textblock
+
+    refresh/ labella
+    refresh/ Aiko_GUI
+             
+
+end/ Function
+
+function/ HDD.MouseLeave()
+
+
+    textblock/ /modif:labella
+             .text = ""
+             .TEXTCOLOR  = "200,200,200"
+             create/
+    end/ textblock
+
+    refresh/ labella
+    refresh/ Aiko_GUI
+             
+
+end/ function
+
+function/ HDD.Click()
+GUI/ /CONSOLE
+DOS/ OS/ELIEOS/SYSIV/PROG_X86/DOS/XFDISK.EXE
+sys/ /restart
+end/ function
+
+Picturebox/ installelieos
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "400"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/INSTALL.PNG"
+	    .event			= "%_exe_path_%=MouseEnter,Click,MouseLeave"
+        create/
+
+End/ Picturebox
+
+function/ installelieos.MouseEnter()
+
+    textblock/ /modif:labella
+             .text = "Install Cpcdos OSx and ElieOS3"
+             .TEXTCOLOR  = "200,200,200"
+             create/
+    end/ textblock
+
+    refresh/ labella
+    refresh/ Aiko_GUI
+             
+
+end/ Function
+
+function/ installelieos.MouseLeave()
+
+
+    textblock/ /modif:labella
+             .text = ""
+             .TEXTCOLOR  = "200,200,200"
+             create/
+    end/ textblock
+
+    refresh/ labella
+    refresh/ Aiko_GUI
+             
+
+
+end/ function
+
+function/ installelieos.Click()
+
+close/ Aiko_GUI
+exe/ & os/elieos/sysiv/prog_x86/setup/stage2.cpc
+refresh/ /all
+
+end/ function
+
+Picturebox/ shut_the_god_damn_pc
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "280"
+        .py             = "420"
+        .sx             = "40"
+        .sy             = "40"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/pwoff.PNG"
+	    .event			= "%_exe_path_%=Click"
+        create/
+
+End/ Picturebox
+
+function/ shut_the_god_damn_pc.Click()
+
+MSGBOX/ Sayonara!
+ccp/ /pause 1000
+sys/ /shutdown
+
+end/ function
+
+
+
+
+rem/DOS/ OS/CPC_INST/DOS/MAKEDOS.BAT
+
+
+rem/ close/ Aiko_GUI
+rem/ EXE/ & OS/CPC_INST/SETUP/STAGE2.CPC
+
+
+
+

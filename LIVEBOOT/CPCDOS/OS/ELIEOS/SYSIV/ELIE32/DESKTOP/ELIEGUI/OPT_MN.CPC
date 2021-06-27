@@ -1,0 +1,131 @@
+
+
+
+window/ option_bar
+	.title 			= "Bar Option"
+	.px				= "0"
+	.py				= "21"
+	.sx				= "168"
+	.sy				= "63"
+	.Opacity 		= "155"
+	.parameters		= "TYPE:4 CTN:1 SHADOW:0 TASKBARHIDE:1"
+	.BackColor	    = "051,051,051"
+	@#OPT_WIN create/
+end/ window
+
+picturebox/ menu_shut
+	.Handle			= "%OPT_WIN%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "0"
+	.PY			= "0"
+	.sx			= "168"
+	.sy		        = "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/shut.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+function/ menu_shut.MouseEnter()
+	
+		// Afficher l'image en surbrillance
+		Picturebox/ /modif:menu_shut
+			.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/shut1.png"
+			create/
+		end/ Picturebox
+	
+end/ function
+
+function/ menu_shut.MouseLeave()
+	
+	// Remettre l'image normale
+	Picturebox/ /modif:menu_shut
+		.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/shut.png"
+		create/
+	end/ Picturebox
+
+	
+end/ function
+
+function/ menu_shut.Click()
+	sys/ /shutdown
+end/ Function
+
+picturebox/ menu_restart
+	.Handle			= "%OPT_WIN%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "0"
+	.PY			= "21"
+	.sx			= "168"
+	.sy		        = "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/restart.png"
+	rem/.opacite		= "100"
+	.event			= "%_exe_path_%=Click,MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+function/ menu_restart.MouseEnter()
+	
+		// Afficher l'image en surbrillance
+		Picturebox/ /modif:menu_restart
+			.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/restart1.png"
+			create/
+		end/ Picturebox
+	
+end/ function
+
+function/ menu_restart.MouseLeave()
+	
+	// Remettre l'image normale
+	Picturebox/ /modif:menu_restart
+		.Image			= "%HOST_OS%/SYSIV/ELIE32/%GUI_ICONPACK%/OS_ICON/DESK/restart.png"
+		create/
+	end/ Picturebox
+
+	
+end/ function
+
+function/ menu_restart.Click()
+	sys/ /restart
+end/ Function
+
+picturebox/ menu_close
+	.Handle			= "%OPT_WIN%"
+	.parameters		= "IMGAUTO:2 COL:0"
+	.PX			= "0"
+	.PY			= "42"
+	.sx			= "168"
+	.sy		        = "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/close.png"
+	rem/.opacite		= "100"
+	.event			= "%_exe_path_%=Click,MouseEnter,Click,MouseLeave"
+	create/
+end/ picturebox
+
+function/ menu_close.MouseEnter()
+	
+		// Afficher l'image en surbrillance
+		Picturebox/ /modif:menu_close
+			.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/close1.png"
+			create/
+		end/ Picturebox
+	
+end/ function
+
+function/ menu_close.MouseLeave()
+	
+	// Remettre l'image normale
+	Picturebox/ /modif:menu_close
+		.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/close.png"
+		create/
+	end/ Picturebox
+
+	
+end/ function
+
+function/ menu_close.Click()
+	close/ option_bar
+end/ Function
+
+
+
+

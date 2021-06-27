@@ -1,0 +1,122 @@
+
+
+window/ upbar
+	.title 			= "up_bar"
+	.px				= "0"
+	.py				= "0"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "21"
+	.Opacity 		= "100"
+	.Parameters		= "TYPE:5 CTN:1 BORD:0 OMBRE:0 TASKBAR:1"
+	.WindowColor	= "050,050,100"
+	.TitleColor	    = "255,255,255"
+	.BackColor  	= "255,255,050"
+	.event			= ""
+	@#launcher_bar create/
+end/ window
+
+
+picturebox/ that_bar
+	.Handle			= "%launcher_bar%"
+	.Parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "0"
+	.sx				= "%CPC.SCR.X%"
+	.sy				= "21"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	create/
+end/ Picturebox
+
+
+set/ POSXX = /C(%CPC.SCR.X% - 150)
+
+textblock/ cpu
+	.Handle = "%launcher_bar%"
+	.parameters = "COL:1, BORD:0, UPD:1"
+	.text = "CPU: ${CPC.SYS.CPU.ACT} \%"
+	.PX = "%POSXX%"
+	.PY = "1"
+	.SX = "80"
+	.SY = "12"
+	.BackColor = "%ELIE.WINDOW.COLOR%"
+	.TextColor = "255,255,255"
+	create/
+end/ textblock
+
+SET/ POSX = /C(%CPC.SCR.X% - 44)
+
+TEXTBLOCK/ time
+	.Handle = "%launcher_bar%"
+	.PARAMETERS = "COL:1, BORD:0, UPD:1"
+	.TEXT = "${CPC.TIME}"
+	.PX = "%POSX%"
+	.PY = "1"
+	.SX = "90"
+	.SY = "10"
+	.BackColor = "%ELIE.WINDOW.COLOR%"
+	.TextColor = "255,255,255"
+	CREATE/
+end/ TEXTBLOCK
+
+set/ NOTY = /C(%CPC.SCR.X% - 66)
+
+picturebox/ notif_center
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2 COL:1"
+	.PX				= "%NOTY%"
+	.PY				= "1"
+	.SX				= "19"
+	.SY				= "19"
+	 .CouleurFond    = "255,255,255"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/cpu.png"
+	create/
+end/ Picturebox
+
+
+
+picturebox/ BTN_ELIE
+	.Handle			= "%launcher_bar%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "0"
+	.PY				= "0"
+	.SX				= "40"
+	.SY				= "21"
+	rem/.opacity		= "255"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/opt.png"
+	.event			= "%_exe_path_%=Click,MouseEnter,Click,MouseLeave"
+	create/
+end/ Picturebox
+
+
+function/ BTN_ELIE.MouseEnter()
+	
+		// Afficher l'image en surbrillance
+		Picturebox/ /modif:BTN_ELIE
+			.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/opt1.png"
+			create/
+		end/ Picturebox
+	
+end/ function
+
+function/ BTN_ELIE.MouseLeave()
+	
+	// Remettre l'image normale
+	Picturebox/ /modif:BTN_ELIE
+		.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/opt.png"
+		create/
+	end/ Picturebox
+
+	
+end/ function
+
+function/ BTN_ELIE.Click()
+	exe/ & %HOST_OS%/SYSIV/ELIE32/DESKTOP/ELIEGUI/OPT_MN.CPC
+end/ Function
+
+    
+
+
+refresh/ /all
+
+
+

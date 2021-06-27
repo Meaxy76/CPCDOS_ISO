@@ -1,0 +1,223 @@
+
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup Stage 5"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+
+Picturebox/ User
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "250"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.PNG"
+		
+        create/
+
+End/ Picturebox
+
+
+
+
+picturebox/ un
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "140"
+	.PY				= "250"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+function/ un.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/elie.png"
+		 create/
+    end/ picturebox
+	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+
+picturebox/ deux
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "250"
+	.PY				= "250"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/tanuki.png"
+	rem/.opacite		= "100"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ deux.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/tanuki.png"
+		 create/
+    end/ picturebox
+	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+picturebox/ trois
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "360"
+	.PY				= "250"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/moe.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ trois.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/moe.png"
+		 create/
+    end/ picturebox
+	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+
+picturebox/ quatre
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "140"
+	.PY				= "360"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE1.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ quatre.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE1.png"
+		 create/
+    end/ picturebox
+	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+
+
+picturebox/ cinq
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "250"
+	.PY				= "360"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE2.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ cinq.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/MIKIE2.png"
+		 create/
+    end/ picturebox
+	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+
+
+picturebox/ six
+	.Handle			= "%Cpcdos_setup%"
+	.parameters		= "IMGAUTO:2"
+	.PX				= "360"
+	.PY				= "360"
+	.sx				= "100"
+	.sy				= "100"
+	.Image			= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/aiko.png"
+	.event			= "%_exe_path_%=Click"
+	create/
+end/ Picturebox
+
+
+function/ six.Click()
+
+    picturebox/ /modif:User
+	     .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/AVATAR/aiko.png"
+		 create/
+    end/ picturebox
+    	refresh/ User
+	refresh/ Aiko_GUI
+
+end/ function
+
+
+
+
+button/ DOIT
+	.handle				= "%Cpcdos_setup%"
+	.px					= "470"
+	.py					= "435"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Finish"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ DOIT.Click()
+
+    picturebox/ /modif:User
+	     @#AVATAR_NICE .image
+    end/ picturebox
+@#NEW_USER OPEN/ C:/CPCDOS/OS/ELIEOS/TEMP.TMP
+
+
+write/ /BIN C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%NEW_USER%/CONFIG/AVATAR.ECF = %AVATAR_NICE%
+
+delete/ C:/CPCDOS/OS/ELIEOS/TEMP.TMP
+
+close/ Aiko_GUI
+exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETUP/STAGE6.CPC
+
+end/ function
+

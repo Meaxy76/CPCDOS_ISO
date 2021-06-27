@@ -1,0 +1,73 @@
+
+
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+
+
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup finished"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+
+
+TEXTBLOCK/ Name
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "You need to restart ElieOS3!"
+	.PX = "185"
+	.PY = "215"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+
+TEXTBLOCK/ Name
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "You can remove the media"
+	.PX = "185"
+	.PY = "230"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+
+
+
+
+button/ DOIT
+	.handle				= "%Cpcdos_setup%"
+	.px					= "240"
+	.py					= "435"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Restart"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ DOIT.Click()
+
+sys/ /restart
+
+end/ function
+
+
+

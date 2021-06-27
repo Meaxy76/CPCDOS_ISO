@@ -1,0 +1,126 @@
+
+
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup Stage 2"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+Picturebox/ HDD
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "250"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/install.PNG"
+		
+        create/
+
+End/ Picturebox
+
+
+textblock/ txtk_etat
+	.handle				= "%Cpcdos_setup%"
+	.px					= "175"
+	.py					= "275"
+	.sx					= "250"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "051,051,051"
+	.TextColor			= "255,255,255"
+	.text				= "Install Cpcdos OSx and ElieOS3?"
+	create/
+end/ textblock
+
+
+button/ INSTALL_CPCOSX
+	.handle				= "%Cpcdos_setup%"
+	.px					= "240"
+	.py					= "315"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Install"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+FUNCTION/ INSTALL_CPCOSX.Click()
+// DO IT MOTHERFUCKER!!!! DO IT!!!
+
+
+sys/ /CONSOLE
+dos/ OS/ELIEOS/SYSIV/PROG_X86/DOS/MAKEDOS.BAT
+
+sys/ /os:elieos
+gui/
+
+close/ Aiko_GUI
+exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETUP/STAGE3.CPC
+refresh/ /all
+
+// decompress/ C:\CPCDOSX.ZIP, C:\
+// decompress/ C:\ELIEOS3.ZIP, C:\CPCDOS\OS
+// delete/ C:\CPCDOSX.ZIP
+// delete/ C:\ELIEOS3.ZIP
+
+
+END/ FUNCTION
+
+
+
+
+button/ NO_CPCOSX
+	.handle				= "%Cpcdos_setup%"
+	.px					= "240"
+	.py					= "350"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Cancel"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+FUNCTION/ NO_CPCOSX.Click()
+
+  MSGBOX/ Ok, bye
+  stopk/
+  cls/
+  
+end/ function
+
+
+
+rem/CMD/ /THREAD COPY/ M:\CPCDOS\CPCDOS.ZIP, C:\
+rem/decompress/ C:\CPCDOS.ZIP C:\
+rem/ CMD/ /THREAD DELETE/ C:\CPCDOS.ZIP
+rem/CMD/ /THREAD COPY/ M:\FILES\DRIVERS\DRIVERS.ZIP, C:\
+rem/decompress/ C:\DRIVERS.ZIP C:\CPCDOS
+rem/ CMD/ /THREAD DELETE/ C:\DRIVERS.ZIP
+rem/DOS/ OS/CPC_INST/DOS/DELFOLD.BAT
+
+
+
+

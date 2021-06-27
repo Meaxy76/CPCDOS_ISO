@@ -1,0 +1,280 @@
+
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+set/ textboxset = /C((600 / 2 - (200 / 2))
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup Stage 4"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+
+
+button/ DOIT
+	.handle				= "%Cpcdos_setup%"
+	.px					= "470"
+	.py					= "435"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Next"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+
+function/ DOIT.Click()
+
+
+   CCP/ /SET.LEVEL = 2
+
+    textbox/ /modif:pseudo
+            @#CHECK .text
+	end/ Textbox
+
+    SET/ Pseudo_Check = /f:CPC.LEN(%CHECK%)
+                        if/ "%Pseudo_Check%" > "8" then:
+	                         MSGBOX/ ERROR! THE USERNAME NEED TO BE 8 CHARACTER OR LESS
+
+                        else:
+
+                           textbox/ /modif:file_to
+                                 @#NAME .text
+                           end/ textbox
+
+                           textbox/ /modif:lastname
+                                 @#LASTNAME .text
+                           end/ textbox
+
+                           textbox/ /modif:pass
+                                 @#USER_PASS .text
+                           end/ textbox
+
+                           Checkbox/ /modif:THAT_DAMN_THING
+                               @#STATE .Value
+                           end/ checkbox
+
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/CONFIG
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/DESKTOP
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/DOCS
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/DOWNLOAD
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/MUSICS
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/WALLPPR
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/ARTS
+                           folder/ C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/MYSPACE/ANIME
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/LIST.LST = %CHECK%
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/STATE.ESL = %STATE%
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/CONFIG/RES.ECF = %SCR_RES%
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/CONFIG/PASSW.ECF = %USER_PASS%
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/CONFIG/BACK.ECF = OS/ELIEOS/SYSIV/BACK/ELIEOS3.PNG
+                           write/ /bin C:/CPCDOS/OS/ELIEOS/SYSIV/USERXT/%CHECK%/CONFIG/INFO.ECF = %NAME%%CPC.CR%%LASTNAME%
+
+                           write/ /BIN C:/CPCDOS/OS/ELIEOS/TEMP.TMP = %CHECK%
+
+                          close/ Aiko_GUI
+                          exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETUP/STAGE5.CPC  
+                          refresh/ /all
+                        end/ if
+    
+
+end/ function
+
+
+Picturebox/ User
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "250"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/user.PNG"
+		
+        create/
+
+End/ Picturebox
+
+
+TEXTBLOCK/ Name
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Firstname:"
+	.PX = "185"
+	.PY = "215"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ familyname
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Lastname:"
+	.PX = "185"
+	.PY = "255"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+TEXTBLOCK/ username
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Username:"
+	.PX = "185"
+	.PY = "295"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+ TEXTBLOCK/ mdp
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Password:"
+	.PX = "185"
+	.PY = "335"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+
+TEXTBLOCK/ oblig
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "*You must fill all the fields"
+	.PX = "160"
+	.PY = "370"
+    .SX = "270"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+ set/ firstname = \#NULL
+
+Textbox/ file_to
+	.handle			= "%Cpcdos_setup%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "%textboxset%"
+        .PY                             = "230"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "255,255,255"
+	.TextColor	= "000,000,000"
+    .text          = "%firstname%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+set/ secondname = \#NULL
+
+Textbox/ lastname
+	.handle			= "%Cpcdos_setup%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "%textboxset%"
+        .PY                             = "270"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "255,255,255"
+	.TextColor	= "000,000,000"
+    .text          = "%secondname%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+set/ username = \#NULL
+
+Textbox/ pseudo
+	.handle			= "%Cpcdos_setup%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "%textboxset%"
+        .PY                             = "310"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "255,255,255"
+	.TextColor	= "000,000,000"
+    .text          = "%username%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+SET/ password = \#NULL
+
+Textbox/ pass
+	.handle			= "%Cpcdos_setup%"
+	.parameters 	= "EDIT:1 COL:1 MULTILINES:1"
+        .PX                             = "%textboxset%"
+        .PY                             = "350"
+	.SX				= "200"
+	.SY				= "15"
+	.BackColor	= "255,255,255"
+	.TextColor	= "000,000,000"
+    .text          = "%password%"
+	.event			= "%_exe_path_%"
+    Create/
+end/ Textbox
+
+
+
+
+
+Checkbox/ THAT_DAMN_THING
+     .handle = "%Cpcdos_setup%"
+     .PX = "5"
+     .PY = "435"
+     .Sx = "100"
+     .Sy = "20"
+     .BackColor = "255,255,240"
+     .TextColor = "255,255,255"
+     .Value = "0" 
+     .text = "Log in automatically?"
+	 .event = "%_EXE_PATH_%=Click"
+     create/
+End/ Checkbox
+
+TEXTBLOCK/ Name
+	.Handle = "%Cpcdos_setup%"
+	.PARAMETERS = "COL:0, BORD:0"
+	.TEXT = "Log in automatically?"
+	.PX = "25"
+	.PY = "435"
+    .SX = "250"
+    .SY = "21"
+	.TEXTCOLOR = "211,211,211"
+	CREATE/
+END/ TEXTBLOCK
+
+FUNCTION/ THAT_DAMN_THING.Click()
+    CHECKBOX/ /MODIF:THAT_DAMN_THING
+	     @#CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH .Value
+    END/ CHECKBOX
+
+
+	IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "0" then:
+	    SET/ CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH = 1
+	ELSE:
+	    IF/ "%CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH%" == "1" then:
+	         SET/ CHECK_YOUR_GOD_DAMN_LOGIN_AT_BOOT_AAAAAAAAAAAAH = 0
+		END/ IF
+
+	END/ IF
+	      
+END/ FUNCTION
+
+
+
+		refresh/ /all
+

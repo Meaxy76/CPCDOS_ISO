@@ -1,0 +1,216 @@
+
+
+set/ POS_X = /C((%CPC.SCR.X% / 2) - 300)
+SET/ POS_Y = /C((%CPC.SCR.Y% / 2) - 240)
+
+
+window/ Aiko_GUI
+	.title				= "ElieOS3 Initial Setup Stage 3"
+	.px					= "%POS_X%"
+	.py					= "%POS_Y%"
+	.sx					= "600"
+	.sy					= "480"
+	.Opacity			= "255"
+	.Parameters			= "TYPE:0 SIZ:0 SIZBTN:0"
+	.BackColor	    	= "051,051,051"
+    .TitleColor         = "255,255,255"
+    .ImgTitre           = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%"
+	@#Cpcdos_setup create/
+end/ window
+
+Picturebox/ HDD
+
+
+        .handle         = "%Cpcdos_setup%"
+        .parameters     = "IMGAUTO:2"
+        .px             = "250"
+        .py             = "100"
+        .sx             = "100"
+        .sy             = "100"
+        .image          = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/install.PNG"
+		
+        create/
+
+End/ Picturebox
+
+
+
+
+button/ INSTALL_USER
+	.handle				= "%Cpcdos_setup%"
+	.px					= "240"
+	.py					= "345"
+	.sx					= "120"
+	.sy					= "21"
+	.parameters			= "IMGAUTO:2"
+	.textcolor          = "255,255,255"
+	.text				= "Next"
+	.Image		    	= "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/DEF_GUI.PNG"
+	.event				= "%_exe_path_%=Click"
+	create/
+end/ button
+
+function/ INSTALL_USER.Click()
+
+
+   CCP/ /SET.LEVEL = 2
+
+    ProgressBar/ /modif:pourcentinstallation
+                         @#CHECK .value
+	end/ ProgressBar
+
+	if/ "%CHECK%" < "100" then:
+	msgbox/ Wait until setup finish!
+	else:
+	   if/ "%CHECK%" == "100" then:
+	     close/ Aiko_GUI
+	    exe/ & OS/ELIEOS/SYSIV/PROG_X86/SETUP/STAGE4.CPC 
+		refresh/ /all
+		end/ if
+	end/ if
+    
+
+end/ function
+
+
+ProgressBar/ pourcentinstallation
+            .handle = "%Cpcdos_setup%"
+            .parameters = "IMGAUTO:2"
+            .text = "0 %"
+            .value = "0"
+            .PX = "398"
+            .PY = "455"
+            .SX = "200"
+            .SY = "21"
+            .backcolor = "200,255,240"
+            .textcolor = "000,000,000"
+            .image = "OS/ELIEOS/SYSIV/ELIE32/ICONPACK/MEDIA/BTN_GREN.png"
+            .event = "%_EXE_PATH_%"
+             create/
+end/ ProgressBar
+
+
+
+ccp/ /pause 1000
+
+textblock/ txtk_etat
+	.handle				= "%Cpcdos_setup%"
+	.px					= "165"
+	.py					= "280"
+	.sx					= "265"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "051,051,051"
+	.TextColor			= "255,255,255"
+	.text				= "Decompressing Cpcdos OSx files..."
+	create/
+end/ textblock
+
+folder/ C:\CPCDOS
+
+decompress/ C:\CPCDOSX.ZIP, C:\CPCDOS
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "20 %"
+                         .value = "20"
+						 create/
+	end/ ProgressBar
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "35 %"
+                         .value = "35"
+						 create/
+	end/ ProgressBar
+
+textblock/ txtk_etat
+	.handle				= "%Cpcdos_setup%"
+	.px					= "175"
+	.py					= "295"
+	.sx					= "250"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "051,051,051"
+	.TextColor			= "255,255,255"
+	.text				= "Decompressing ElieOS3 files..."
+	create/
+end/ textblock
+
+decompress/ C:\ELIEOS3.ZIP, C:\CPCDOS\OS
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "75 %"
+                         .value = "75"
+						 create/
+	end/ ProgressBar
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "85 %"
+                         .value = "85"
+						 create/
+	end/ ProgressBar
+
+textblock/ txtk_etat
+	.handle				= "%Cpcdos_setup%"
+	.px					= "175"
+	.py					= "310"
+	.sx					= "250"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "051,051,051"
+	.TextColor			= "255,255,255"
+	.text				= "Cleaning installation files..."
+	create/
+end/ textblock
+
+delete/ C:\CPCDOSX.ZIP
+delete/ C:\ELIEOS3.ZIP
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "95 %"
+                         .value = "95"
+						 create/
+	end/ ProgressBar
+
+
+ccp/ /pause 1000
+
+    ProgressBar/ /modif:pourcentinstallation
+                         .text = "100 %"
+                         .value = "100"
+						 create/
+	end/ ProgressBar
+
+	
+textblock/ txtk_etat
+	.handle				= "%Cpcdos_setup%"
+	.px					= "275"
+	.py					= "325"
+	.sx					= "50"
+	.sy					= "16"
+	.parameters			= ""
+	.BackColor 			= "051,051,051"
+	.TextColor			= "255,255,255"
+	.text				= "Done!"
+	create/
+end/ textblock
+
+
+
+
+
+
+    refresh/ pourcentinstallation
+	refresh/ Aiko_GUI
+
+

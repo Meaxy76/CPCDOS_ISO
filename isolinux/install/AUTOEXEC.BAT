@@ -1,0 +1,18 @@
+@echo off
+cls
+echo Welcome to CPC_CD installer
+path=A:\DOS\BIN;D:\DOS\BIN
+
+DEVLOAD /H /Q \DOS\BIN\UDVD2.SYS /D:MXCD0001
+
+SHSUCDX /QQ /D3
+
+SHSUCDX /QQ /~ /D:?SHSU-CDR,M /D:?SHSU-CDH,D /D:?MXCD0001,M /D:?MXCD0002,M /D:?MXCD0003,D
+
+
+SHSUCDX /D
+
+SET CFGFILE=\CONFIG.SYS
+
+M:\setup.bat
+
